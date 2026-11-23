@@ -1,0 +1,660 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#241a16">
+
+  <title>Ali &amp; Rehab | Engagement Invitation</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --gold: #d2b77d;
+      --cream: #f5ebd8;
+      --dark: #211815;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--dark);
+      color: var(--cream);
+      font-family: "Cormorant Garamond", Georgia, serif;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    .experience {
+      position: relative;
+      isolation: isolate;
+      min-height: 100vh;
+      min-height: 100svh;
+      overflow: hidden;
+      background: var(--dark);
+    }
+
+    /* الباب المغلق */
+    .experience::before,
+    /* الباب المفتوح */
+    .experience::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background-position: center;
+      background-size: cover;
+      background-repeat: no-repeat;
+      transition:
+        opacity 1.5s ease,
+        transform 2s cubic-bezier(.7, 0, .2, 1),
+        filter 1.5s ease;
+    }
+
+    .experience::before {
+      background-image:
+        linear-gradient(#160e0870, #160e0844 42%, #160e0877),
+        url("./place-door.jpg");
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .experience::after {
+      background-image:
+        linear-gradient(#160e0870, #160e0844 42%, #160e0877),
+        url("./open.jpeg");
+      opacity: 0;
+      transform: scale(1.15);
+      filter: blur(8px);
+    }
+
+    .experience.door-open::before {
+      opacity: 0;
+      transform: scale(1.2) rotateY(-8deg);
+      filter: blur(5px);
+    }
+
+    .experience.door-open::after {
+      opacity: 1;
+      transform: scale(1);
+      filter: blur(0);
+    }
+
+    .gate {
+      position: absolute;
+      inset: 0;
+      z-index: 3;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      text-align: center;
+      background: #160e0840;
+      transition: opacity 1s ease, visibility 1s ease;
+    }
+
+    .gate-inner {
+      padding: 30px 24px;
+      border: 1px solid #d2b77d99;
+      background: #211914b8;
+      box-shadow: 0 20px 80px #100a08a8;
+    }
+
+    .gate-symbol {
+      margin: 0 0 8px;
+      color: var(--gold);
+      font-size: 40px;
+    }
+
+    .gate h1 {
+      margin: 0 0 20px;
+      color: #fff4dc;
+      font-size: clamp(42px, 10vw, 68px);
+      font-weight: 400;
+    }
+
+    .open-button {
+      padding: 12px 24px;
+      border: 1px solid var(--gold);
+      background: #35291f;
+      color: #fff2d7;
+      cursor: pointer;
+      font-size: 19px;
+      transition: background .25s, transform .25s;
+    }
+
+    .open-button:hover {
+      transform: translateY(-2px);
+      background: #493825;
+    }
+
+    .experience.opened .gate {
+      visibility: hidden;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .reveal {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      min-height: 100svh;
+      padding: 30px 16px;
+      text-align: center;
+      opacity: 0;
+      transform: translateY(18px) scale(.985);
+      transition: opacity 1.2s ease .3s, transform 1.2s ease .3s;
+    }
+
+    .experience.opened .reveal {
+      opacity: 1;
+      transform: none;
+    }
+
+    .content {
+      width: min(560px, 100%);
+      padding: 20px;
+      border: 1px solid #d2b77d88;
+      background: linear-gradient(180deg, #211914bb, #211914e8);
+      box-shadow: 0 20px 80px #100a08a8;
+      backdrop-filter: blur(3px);
+    }
+
+    .portrait-wrap {
+      width: min(300px, 78vw);
+      aspect-ratio: 4 / 5;
+      margin: 0 auto 12px;
+      padding: 7px;
+      border: 1px solid #f0d69c;
+      background: linear-gradient(135deg, #f4e2b5, #886438 35%, #e1c27d 55%, #6f4b28);
+      box-shadow: 0 8px 35px #080605a8;
+    }
+
+    .portrait {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 38%;
+      filter: sepia(.12) contrast(1.03);
+    }
+
+    .ornament {
+      margin: 0 0 4px;
+      color: var(--gold);
+      font-family: serif;
+      font-size: 20px;
+      letter-spacing: 8px;
+    }
+
+    .names {
+      margin: 2px 0 8px;
+      color: #fff4dc;
+      font-size: clamp(43px, 10vw, 66px);
+      font-weight: 400;
+      line-height: 1.2;
+      text-shadow: 0 3px 18px #1b0e0b;
+    }
+
+    .heart {
+      margin: 0 8px;
+      color: #e3c581;
+      font-size: 22px;
+    }
+
+    .tagline {
+      max-width: 450px;
+      margin: 8px auto 18px;
+      color: #f4ead8;
+      font-size: 20px;
+      line-height: 1.5;
+    }
+
+    .tagline span {
+      display: block;
+    }
+
+    .countdown {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin: 0 auto 16px;
+      direction: ltr;
+    }
+
+    .count-unit {
+      min-width: 58px;
+      padding: 5px 7px 3px;
+      border: 1px solid #d2b77d66;
+      background: #160f0dbb;
+    }
+
+    .count-unit strong,
+    .count-unit span {
+      display: block;
+    }
+
+    .count-unit strong {
+      color: #f0d69c;
+      font-size: 21px;
+      font-variant-numeric: tabular-nums;
+      font-weight: 600;
+      line-height: 1.15;
+    }
+
+    .count-unit span {
+      color: #e4d2af;
+      font-family: Georgia, serif;
+      font-size: 9px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .event {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin: 12px auto 16px;
+      color: #fff2d7;
+    }
+
+    .event-item {
+      min-width: 0;
+      flex: 1;
+    }
+
+    .event-item strong,
+    .event-item span {
+      display: block;
+    }
+
+    .event-item span {
+      margin-bottom: 6px;
+      color: #f5dfb5;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    .event-item strong {
+      color: #e5cc91;
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    .separator {
+      height: 40px;
+      border-right: 1px solid #d2b77d99;
+      flex-shrink: 0;
+    }
+
+    .time-item strong {
+      color: #f4d795;
+      font-size: 20px;
+      text-shadow: 0 0 12px #d2b77d55;
+    }
+
+    .time-item strong::before {
+      content: "◷ ";
+      font-size: 18px;
+    }
+
+    .location-card {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      width: min(410px, 100%);
+      margin: 4px auto 0;
+      padding: 9px;
+      border: 1px solid var(--gold);
+      background: linear-gradient(135deg, #35291fcc, #1d1715ee);
+      box-shadow: 0 8px 26px #10090677;
+      color: #fff2d7;
+      text-align: left;
+      text-decoration: none;
+      transition: transform .25s, background .25s;
+    }
+
+    .location-card:hover {
+      transform: translateY(-3px);
+      background: #3b2d21;
+    }
+
+    .map-art {
+      position: relative;
+      flex: 0 0 108px;
+      height: 78px;
+      overflow: hidden;
+      border: 1px solid #d2b77d88;
+      background:
+        linear-gradient(27deg, transparent 0 32%, #b8a982 33% 36%, transparent 37%),
+        linear-gradient(148deg, transparent 0 45%, #c5b58e 46% 50%, transparent 51%),
+        linear-gradient(90deg, transparent 0 63%, #d7c9a7 64% 68%, transparent 69%),
+        repeating-linear-gradient(0deg, #d9d0b7 0 1px, #e9dfc9 1px 20px),
+        repeating-linear-gradient(90deg, transparent 0 23px, #c7b995 24px 25px, transparent 26px 46px);
+    }
+
+    .map-art::after {
+      content: "OUR LOCATION";
+      position: absolute;
+      top: 5px;
+      left: 5px;
+      padding: 2px 5px;
+      background: #f5ebd8e8;
+      color: #493b2b;
+      font: 600 8px Georgia, serif;
+      letter-spacing: 1px;
+    }
+
+    .map-pin {
+      position: absolute;
+      top: 42%;
+      left: 55%;
+      z-index: 1;
+      width: 18px;
+      height: 18px;
+      transform: rotate(-45deg);
+      border: 2px solid #f3dfae;
+      border-radius: 50% 50% 50% 0;
+      background: #702e3c;
+      box-shadow: 0 2px 7px #24140f99;
+    }
+
+    .map-pin::after {
+      content: "";
+      position: absolute;
+      top: 5px;
+      left: 5px;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: #f8e9c7;
+    }
+
+    .location-copy {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .location-copy strong {
+      color: #f0d69c;
+      font-size: 20px;
+      font-weight: 600;
+    }
+
+    .location-copy small {
+      font-family: Georgia, serif;
+      font-size: 12px;
+    }
+
+    /* الورد الجوري الأحمر - 15 وردة فقط */
+    .petals {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .petal {
+      position: absolute;
+      top: -30px;
+      left: var(--left);
+      width: var(--size);
+      height: calc(var(--size) * 1.4);
+      border-radius: 80% 10% 80% 10%;
+      background: linear-gradient(135deg, #ff4b55, #c40020, #780014);
+      opacity: .95;
+      box-shadow: 0 2px 5px #50001455;
+      animation: fall var(--duration) linear var(--delay) forwards;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translate3d(var(--drift), 110vh, 0) rotate(540deg);
+        opacity: 0;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .content {
+        padding: 14px;
+      }
+
+      .portrait-wrap {
+        width: min(240px, 68vw);
+        margin-bottom: 8px;
+      }
+
+      .tagline {
+        margin: 5px auto 10px;
+        font-size: 18px;
+      }
+
+      .event {
+        gap: 7px;
+        margin: 8px auto 10px;
+      }
+
+      .event-item span {
+        font-size: 12px;
+      }
+
+      .event-item strong {
+        font-size: 14px;
+      }
+
+      .time-item strong {
+        font-size: 16px;
+      }
+
+      .separator {
+        height: 32px;
+      }
+
+      .countdown {
+        gap: 5px;
+      }
+
+      .count-unit {
+        min-width: 52px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        transition-duration: .01ms !important;
+        animation-duration: .01ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="experience" id="experience">
+
+    <section class="reveal"
+             aria-label="Ali and Rehab's engagement invitation"
+             aria-hidden="true">
+      <div class="content">
+
+        <div class="portrait-wrap">
+          <img class="portrait"
+               src="./ali-rehab.jpeg"
+               alt="Ali and Rehab">
+        </div>
+
+        <p class="ornament" aria-hidden="true">❧ ✦ ❧</p>
+
+        <h2 class="names">
+          Ali <span class="heart">♥</span> Rehab
+        </h2>
+
+        <p class="tagline">
+          <span>We're so happy to share our special day with you.</span>
+          <span>Your presence means the world to us.</span>
+        </p>
+
+        <div class="countdown" aria-label="Countdown to the celebration">
+          <div class="count-unit">
+            <strong id="days">000</strong>
+            <span>Days</span>
+          </div>
+          <div class="count-unit">
+            <strong id="hours">00</strong>
+            <span>Hours</span>
+          </div>
+          <div class="count-unit">
+            <strong id="minutes">00</strong>
+            <span>Minutes</span>
+          </div>
+          <div class="count-unit">
+            <strong id="seconds">00</strong>
+            <span>Seconds</span>
+          </div>
+        </div>
+
+        <div class="event">
+          <div class="event-item">
+            <span>Date</span>
+            <strong id="date">December 12, 2026</strong>
+          </div>
+
+          <div class="separator" aria-hidden="true"></div>
+
+          <div class="event-item">
+            <span>The Place</span>
+            <strong id="venue">Sky Town</strong>
+          </div>
+
+          <div class="separator" aria-hidden="true"></div>
+
+          <div class="event-item time-item">
+            <span>Engagement Time</span>
+            <strong id="time">7:00 PM</strong>
+          </div>
+        </div>
+
+        <a class="location-card"
+           id="mapLink"
+           href="https://maps.app.goo.gl/41spuCuXvgvp3cBF6?g_st=aw"
+           target="_blank"
+           rel="noreferrer"
+           aria-label="Open Sky Town in Google Maps">
+
+          <span class="map-art" aria-hidden="true">
+            <span class="map-pin"></span>
+          </span>
+
+          <span class="location-copy">
+            <strong>Our Location</strong>
+            <small>Tap to open in Google Maps ↗</small>
+          </span>
+        </a>
+      </div>
+    </section>
+
+    <div class="petals" id="petals" aria-hidden="true"></div>
+
+    <div class="gate">
+      <div class="gate-inner">
+        <p class="gate-symbol" aria-hidden="true">❧</p>
+        <h1>Ali &amp; Rehab</h1>
+        <button class="open-button" id="openButton" type="button">
+          Open the Invitation
+        </button>
+      </div>
+    </div>
+
+    <audio id="invitationSong" preload="auto">
+      <source src="./music.mp3" type="audio/mpeg">
+    </audio>
+  </main>
+
+  <script>
+    const invitation = {
+      date: "December 12, 2026",
+      venue: "Sky Town",
+      time: "7:00 PM",
+      map: "https://maps.app.goo.gl/41spuCuXvgvp3cBF6?g_st=aw",
+      eventAt: "2026-12-12T19:00:00+02:00"
+    };
+
+    document.getElementById("date").textContent = invitation.date;
+    document.getElementById("venue").textContent = invitation.venue;
+    document.getElementById("time").textContent = invitation.time;
+    document.getElementById("mapLink").href = invitation.map;
+
+    const eventTime = new Date(invitation.eventAt).getTime();
+    const countdownIds = ["days", "hours", "minutes", "seconds"];
+
+    function updateCountdown() {
+      const remaining = Math.max(0, eventTime - Date.now());
+
+      const values = [
+        Math.floor(remaining / 86400000),
+        Math.floor((remaining % 86400000) / 3600000),
+        Math.floor((remaining % 3600000) / 60000),
+        Math.floor((remaining % 60000) / 1000)
+      ];
+
+      values.forEach((value, index) => {
+        document.getElementById(countdownIds[index]).textContent =
+          index === 0
+            ? String(value)
+            : String(value).padStart(2, "0");
+      });
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
+    const experience = document.getElementById("experience");
+    const openButton = document.getElementById("openButton");
+    const invitationSong = document.getElementById("invitationSong");
+    const petals = document.getElementById("petals");
+
+    openButton.addEventListener("click", () => {
+      experience.classList.add("opened", "door-open");
+
+      document.querySelector(".reveal")
+        .setAttribute("aria-hidden", "false");
+
+      invitationSong.play().catch(() => {
+        console.log("تأكدي إن ملف music.mp3 موجود في نفس مجلد الصفحة.");
+      });
+
+      // إنشاء 15 وردة جوري حمراء فقط
+      if (petals.childElementCount) return;
+
+      for (let i = 0; i < 15; i++) {
+        const petal = document.createElement("i");
+
+        petal.className = "petal";
+
+        petal.style.setProperty("--left", `${Math.random() * 100}%`);
+        petal.style.setProperty("--size", `${9 + Math.random() * 10}px`);
+        petal.style.setProperty("--duration", `${5.5 + Math.random() * 4}s`);
+        petal.style.setProperty("--delay", `${Math.random() * 2}s`);
+        petal.style.setProperty("--drift", `${-60 + Math.random() * 120}px`);
+
+        petals.appendChild(petal);
+      }
+    });
+  </script>
+</body>
+</html>
